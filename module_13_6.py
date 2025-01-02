@@ -29,7 +29,7 @@ kb.insert(button2)
 @dp.message_handler(commands=['start'])
 async def start_message(message: types.Message):
     await message.answer(
-        'Привет! Я бот помогающий твоему здоровью.')
+        'Привет! Я бот помогающий твоему здоровью.', reply_markup=kb)
 
 
 @dp.message_handler(text='Рассчитать')
@@ -38,11 +38,11 @@ async def main_menu(message):
                          reply_markup=kb)
     await start_message.age.set()
 
-@dp.callback_query_handler(text = 'formulas')
+
+@dp.callback_query_handler(text='formulas')
 async def infor(call):
     await call.message.answer("10 x вес (кг) + 6,25 x рост (см) – 5 x возраст (г) – 161")
     await call.answer()
-
 
 
 @dp.callback_query_handler(text='calories')
@@ -76,6 +76,8 @@ async def send_calories(message, state):
     await message.answer(f'Ваша норма колорий {norma_call}')
     # Для мужчин: (10 х вес в кг) + (6,25 х рост в см) – (5 х возраст в г) + 5.
     await state.finish()
+
+
 # "10 x вес (кг) + 6,25 x рост (см) – 5 x возраст (г) – 161"
 
 @dp.message_handler(text='Информация')
